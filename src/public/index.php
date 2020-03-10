@@ -2,7 +2,6 @@
 /** file main php view*/
 
 
-
 ?>
 <!doctype html>
 <html lang="it">

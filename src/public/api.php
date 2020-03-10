@@ -1,11 +1,8 @@
 <?php
 
 /** api rest*/
-
-/*$database = require_once __DIR__ . '/../public/common/database.php';*/
-include_once __DIR__ . '/../public/object/User.php';
-include_once __DIR__ . '/../public/sql/Data.php';
-$config = include_once __DIR__ . '/../public/common/config.php';
+include __DIR__ . '/../library/sql/Data.php';
+$config = include __DIR__ . '/../library/common/config.php';
 
 /*spl_autoload_register(
     function ($class_name) {
@@ -13,12 +10,25 @@ $config = include_once __DIR__ . '/../public/common/config.php';
         include __DIR__ . '../library/' . $class_name . '.php';
     }
 );*/
-
-header('Access-Control-Allow-Origin: *');
+/*header('Access-Control-Allow-Origin: *');*/
 header('Content-Type: application / json; charset = UTF-8');
 
+$data = new Data();
+$query = $data->getAllNodeTree();
+if (isset($_GET['idNode']) && isset($_GET['level']) && isset($_GET['iLeft']) && isset($_GET['iRight'])) {
+    $idNode = $_GET['idNode'];
+    $level = $_GET['level'];
+    $iLeft = $_GET['iLeft'];
+    $iRight = $_GET['iRight'];
+    $SQL = $mysqli->prepare($query);
+    $SQL->execute();
 
-$conn = new Data();
-
-$testConn = $conn->__construct($config['db']);
-echo $testConn;
+    if ($SQL) {
+        echo json_encode(array('RESPONSE' => 'SUCCESS'));
+    } else {
+        echo json_encode(array('RESPONSE' => 'FAILED'));
+    }
+} else {
+    echo 'Ops qualcosa è andato storto';
+}
+var_dump($query);
