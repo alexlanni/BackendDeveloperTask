@@ -11,6 +11,15 @@ $config = require __DIR__ . '/../common/config.php';
 
 /** mediante la libreia mysqli creo la connessione al db e gestisco eventuali errori di connessione*/
 // TODO: da spostare in Data.php
+$con =  [
+    'db' => [
+        'host' => '127.0.0.1',
+        'username' => 'gianluca',
+        'password' => 'password',
+        'dbname' => 'apirest'
+    ],
+];
+
 $mysqli = new mysqli(
     $config['db']['host'],
     $config['db']['username'],
@@ -24,7 +33,8 @@ if ($mysqli->connect_error) {
         . $mysqli->connect_error
     );
 } else {
-    echo 'Connesso. ' . $mysqli->host_info . "\n";
+    /*echo 'Connesso. ' . $mysqli->host_info . "\n";*/
+    return $mysqli;
 }
 
-return $mysqli;
+/*return $mysqli;*/
