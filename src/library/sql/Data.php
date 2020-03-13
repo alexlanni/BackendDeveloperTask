@@ -125,7 +125,7 @@ class Data
             }
             $SQL->close();
         } else {
-            echo 'ERROR NO CALL';
+            $this->getHttpStatusMessage(500);
         }
     }
 
@@ -170,4 +170,15 @@ class Data
         mysqli_close($conn);
     }
 
+
+    private function getHttpStatusMessage($statusCode)
+    {
+        $httpStatus = array(
+            410 => 'Invalid node id',
+            411 => 'Missing mandatory params',
+            412 => 'Invalid page number requested\'',
+            413 => 'Invalid page size requested',
+            500 => 'Internal Server Error');
+        return ($httpStatus[$statusCode]);
+    }
 }
